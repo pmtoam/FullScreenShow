@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">全局显示</string>
+    <string name="hello_world">你好,此页面可以关闭，只作为启动。 </string>
+
+</resources>

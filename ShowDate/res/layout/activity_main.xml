@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent" >
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:shadowColor="#91000000"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowRadius="1"
+        android:text="@string/hello_world"
+        android:textColor="#f5ffffff"
+        android:textSize="12.5sp"
+        android:textStyle="normal" />
+
+</RelativeLayout>
