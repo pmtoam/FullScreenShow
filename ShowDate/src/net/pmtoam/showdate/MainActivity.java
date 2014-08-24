@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ToggleButton;
 
 public class MainActivity extends Activity
 {
 
 	private Context context = this;
+	private static final String TAG = "MainActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -34,6 +38,32 @@ public class MainActivity extends Activity
 			{
 				CommonUtil.setCustomsContent(context, et.getText().toString()
 						.trim());
+			}
+		});
+		
+		ToggleButton toggleButton_gprs = (ToggleButton) findViewById(R.id.toggleButton_gprs);
+		toggleButton_gprs.setChecked(CommonUtil.isEnableGprs(context)); 
+		toggleButton_gprs.setOnCheckedChangeListener(new OnCheckedChangeListener() 
+		{
+			
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) 
+			{
+				Logger.e(TAG, "toggleButton_gprs onCheckedChanged arg1 = " + arg1);
+				CommonUtil.setEnableGprs(arg1, context);
+			}
+		});
+		
+		ToggleButton toggleButton_show = (ToggleButton) findViewById(R.id.toggleButton_show);
+		toggleButton_show.setChecked(CommonUtil.isShowView(context)); 
+		toggleButton_show.setOnCheckedChangeListener(new OnCheckedChangeListener() 
+		{
+			
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) 
+			{
+				Logger.e(TAG, "toggleButton_show onCheckedChanged arg1 = " + arg1);
+				CommonUtil.setShowView(arg1, context);
 			}
 		});
 		

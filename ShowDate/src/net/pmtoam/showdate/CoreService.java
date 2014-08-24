@@ -1,5 +1,6 @@
 package net.pmtoam.showdate;
 
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -79,8 +81,26 @@ public class CoreService extends Service
 								+ "\n"
 								+ CommonUtil
 										.getCustomsContent(getApplicationContext()));
+					
+					if (CommonUtil.isShowView(getApplicationContext()))
+					{
+						mTV.setVisibility(View.VISIBLE);
+					}
+					else
+					{
+						mTV.setVisibility(View.GONE);
+					}
 				}
-
+				
+				try 
+				{
+					toggleGprs(CommonUtil.isEnableGprs(getApplicationContext()));
+				} 
+				catch (Exception e) 
+				{
+					e.printStackTrace();
+				}
+				
 				handler.postDelayed(mRunnable, 1000);
 			}
 		};
@@ -173,6 +193,14 @@ public class CoreService extends Service
 		wm = (WindowManager) getApplicationContext().getSystemService("window");
 		layoutView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_main, null);
 		mTV = (TextView) layoutView.findViewById(R.id.tv);
+		if (CommonUtil.isShowView(getApplicationContext()))
+		{
+			mTV.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			mTV.setVisibility(View.GONE);
+		}
 		if (!TextUtils.isEmpty(battery))
 			mTV.setText(getYearMonthDay() + " " + getWeeks() + " " + battery
 					+ "\n"
@@ -197,7 +225,7 @@ public class CoreService extends Service
 	@SuppressLint("SimpleDateFormat")
 	private String getYearMonthDay()
 	{
-		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 		Date d1 = new Date(System.currentTimeMillis());
 		String chineseDate = "";
 		try
@@ -233,4 +261,13 @@ public class CoreService extends Service
 		return today;
 	}
 
+	public void toggleGprs(boolean isEnable) throws Exception
+	{    
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		Class<?> cmClass = connManager.getClass();    
+		Class<?>[] argClasses = new Class[1];    
+		argClasses[0] = boolean.class;    
+		Method method = cmClass.getMethod("setMobileDataEnabled", argClasses);    
+		method.invoke(connManager, isEnable);   
+	} 
 }

@@ -69,4 +69,34 @@ public class CommonUtil
 		SharedPreferences sp = context.getSharedPreferences(PREFS_CACHE_ONE, 0);
 		return sp.getLong("getDooiooAllTime", 0);
 	}
+	
+	// ---------------------------------------------------------------------------
+	public static void setEnableGprs(boolean isEnableGprs, Context context)
+	{
+		SharedPreferences sp = context.getSharedPreferences(PREFS_CACHE_ONE, 0);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putBoolean("isEnableGprs", isEnableGprs);
+		editor.commit();
+	}
+
+	public static boolean isEnableGprs(Context context)
+	{
+		SharedPreferences sp = context.getSharedPreferences(PREFS_CACHE_ONE, 0);
+		return sp.getBoolean("isEnableGprs", false);
+	}
+
+	// ---------------------------------------------------------------------------
+	public static void setShowView(boolean isShowView, Context context)
+	{
+		SharedPreferences sp = context.getSharedPreferences(PREFS_CACHE_ONE, 0);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putBoolean("isShowView", isShowView);
+		editor.commit();
+	}
+
+	public static boolean isShowView(Context context)
+	{
+		SharedPreferences sp = context.getSharedPreferences(PREFS_CACHE_ONE, 0);
+		return sp.getBoolean("isShowView", false);
+	}
 }
