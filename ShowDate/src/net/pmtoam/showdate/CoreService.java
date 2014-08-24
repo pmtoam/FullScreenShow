@@ -92,13 +92,16 @@ public class CoreService extends Service
 					}
 				}
 				
-				try 
+				if (!CommonUtil.isEnableGprs(getApplicationContext()))
 				{
-					toggleGprs(CommonUtil.isEnableGprs(getApplicationContext()));
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
+					try 
+					{
+						toggleGprs(false);
+					} 
+					catch (Exception e) 
+					{
+						e.printStackTrace();
+					}
 				}
 				
 				handler.postDelayed(mRunnable, 1000);
