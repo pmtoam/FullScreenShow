@@ -163,7 +163,7 @@ public class CoreService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		Log.e(TAG, "onStartCommand(SHOW_DATE)");
+//		Log.e(TAG, "onStartCommand(SHOW_DATE)");
 		return START_STICKY;
 	}
 

@@ -7,7 +7,7 @@ public class Logger
 
 	public static void e(String tag, String msg)
 	{
-		 Log.e(tag, "ShowData--> " + msg);
+//		 Log.e(tag, "ShowData--> " + msg);
 	}
 
 }
