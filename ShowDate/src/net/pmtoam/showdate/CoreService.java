@@ -62,7 +62,6 @@ public class CoreService extends Service {
           else
             mTV.setText(getYearMonthDay() + " " + getWeeks() + "\n"
                 + CommonUtil.getCustomsContent(getApplicationContext()));
-
           if (CommonUtil.isShowView(getApplicationContext())) {
             mTV.setVisibility(View.VISIBLE);
           } else {

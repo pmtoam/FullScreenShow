@@ -1,8 +1,11 @@
 package net.pmtoam.showdate;
 
+import java.lang.reflect.Method;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,6 +47,11 @@ public class MainActivity extends Activity {
       public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
         Logger.e(TAG, "toggleButton_gprs onCheckedChanged arg1 = " + arg1);
         CommonUtil.setEnableGprs(arg1, context);
+        try {
+          toggleGprs(arg1);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
     });
 
@@ -60,4 +68,13 @@ public class MainActivity extends Activity {
     });
   }
 
+  public void toggleGprs(boolean isEnable) throws Exception {
+    ConnectivityManager connManager =
+        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    Class<?> cmClass = connManager.getClass();
+    Class<?>[] argClasses = new Class[1];
+    argClasses[0] = boolean.class;
+    Method method = cmClass.getMethod("setMobileDataEnabled", argClasses);
+    method.invoke(connManager, isEnable);
+  }
 }
